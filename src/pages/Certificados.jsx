@@ -136,6 +136,8 @@ export default function Certificados() {
                 {isAdmin(user) && <th className="px-4 py-3 text-left">IFI</th>}
                 <th className="px-4 py-3 text-left">Cliente</th>
                 <th className="px-4 py-3 text-left">Segmento</th>
+                <th className="px-4 py-3 text-right">Monto Crédito</th>
+                <th className="px-4 py-3 text-right">% Garantizado</th>
                 <th className="px-4 py-3 text-right">Monto Garantizado</th>
                 <th className="px-4 py-3 text-center">Banda</th>
                 <th className="px-4 py-3 text-center">Estado</th>
@@ -144,7 +146,7 @@ export default function Certificados() {
             </thead>
             <tbody>
               {filtered.length === 0 ? (
-                <tr><td colSpan={isAdmin(user) ? 8 : 7} className="px-4 py-12 text-center text-gray-400">
+                <tr><td colSpan={isAdmin(user) ? 10 : 9} className="px-4 py-12 text-center text-gray-400">
                   <FileText size={32} className="mx-auto mb-2 text-gray-300" />
                   No se encontraron certificados
                 </td></tr>
@@ -158,6 +160,12 @@ export default function Certificados() {
                     <p className="text-xs text-gray-400">{cert.cliente_cedula}</p>
                   </td>
                   <td className="px-4 py-3 text-gray-600">{cert.segmento}</td>
+                  <td className="px-4 py-3 text-right text-gray-700">{formatCurrency(cert.monto_credito)}</td>
+                  <td className="px-4 py-3 text-right">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700">
+                      {cert.porcentaje_cobertura != null ? `${(cert.porcentaje_cobertura * 100).toFixed(0)}%` : '—'}
+                    </span>
+                  </td>
                   <td className="px-4 py-3 text-right font-semibold text-gray-900">{formatCurrency(cert.monto_garantizado)}</td>
                   <td className="px-4 py-3 text-center"><BandaBadge banda={cert.banda} showLabel={false} /></td>
                   <td className="px-4 py-3 text-center"><EstadoBadge estado={cert.estado} /></td>
