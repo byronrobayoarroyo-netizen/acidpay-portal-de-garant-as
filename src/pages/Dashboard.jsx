@@ -12,6 +12,7 @@ import { useCurrentUser, isAdmin, isBancoUser } from '@/lib/useCurrentUser';
 import { formatCurrency, formatNumber, formatDate, getMesLabel } from '@/lib/calculos';
 import { ESTADOS_LIQUIDACION } from '@/lib/tarifario';
 import { generateAlerts } from '@/lib/generateAlerts';
+import GarantizadoPorMesChart from '@/components/GarantizadoPorMesChart';
 
 export default function Dashboard() {
   const { user, loading: userLoading } = useCurrentUser();
@@ -205,6 +206,9 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+
+      {/* Chart: monto garantizado por mes e IFI */}
+      <GarantizadoPorMesChart certificados={certificados} />
 
       {/* Ranking */}
       {isAdmin(user) && ranking.length > 0 && (
