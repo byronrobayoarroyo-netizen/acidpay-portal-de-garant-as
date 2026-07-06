@@ -47,9 +47,9 @@ export default function Dashboard() {
           filteredMoras = moras.filter(m => m.ifi_id === user.ifi_id);
         }
 
-        setCertificados(filteredCerts);
-        setLiquidaciones(filteredLiqs);
-        setCasosMora(filteredMoras);
+        setCertificados(filteredCerts.filter(Boolean));
+        setLiquidaciones(filteredLiqs.filter(Boolean));
+        setCasosMora(filteredMoras.filter(Boolean));
         setIfis(ifiList);
 
         const carteraTotal = filteredCerts
@@ -184,7 +184,7 @@ export default function Dashboard() {
           <div className="divide-y divide-gray-50">
             {pendingLiqs.length === 0 ? (
               <p className="px-5 py-8 text-center text-sm text-gray-400">Sin pendientes</p>
-            ) : pendingLiqs.slice(0, 5).map(liq => {
+            ) : pendingLiqs.filter(Boolean).slice(0, 5).map(liq => {
               const est = ESTADOS_LIQUIDACION[liq.estado];
               return (
                 <div key={liq.id} className="px-5 py-3">
