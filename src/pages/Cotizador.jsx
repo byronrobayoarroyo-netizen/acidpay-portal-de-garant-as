@@ -108,11 +108,32 @@ export default function Cotizador() {
   return (
     <div className="space-y-6 max-w-5xl">
       {/* Header */}
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">Cotizador de Garantía</h1>
-        <p className="text-sm text-gray-500 mt-1">
-          {ifi ? `${ifi.nombre} · Tasa base: ${tasaBase}% anual` : 'Ingrese los datos del cliente y la operación'}
-        </p>
+      <div className="flex items-center justify-between flex-wrap gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">Cotizador de Garantía</h1>
+          <p className="text-sm text-gray-500 mt-1">Ingrese los datos del cliente y la operación</p>
+        </div>
+        {ifi && (
+          <div className="flex items-center gap-3 bg-white rounded-xl border border-gray-100 shadow-sm px-4 py-2.5">
+            <div className="w-10 h-10 rounded-lg flex items-center justify-center text-sm font-bold text-white" style={{ backgroundColor: ifi.color_hex || '#1B4F8A' }}>
+              {ifi.logo_iniciales || ifi.codigo}
+            </div>
+            <div>
+              <p className="text-xs text-gray-400">Institución cotizante</p>
+              <p className="text-sm font-bold text-gray-900">{ifi.nombre}</p>
+            </div>
+            <div className="ml-2 pl-3 border-l border-gray-100 space-y-0.5">
+              <p className="text-xs text-gray-400">Tasa base</p>
+              <p className="text-sm font-semibold text-gray-900">{tasaBase}%</p>
+            </div>
+            {ifi.cobertura_base != null && (
+              <div className="pl-3 border-l border-gray-100 space-y-0.5">
+                <p className="text-xs text-gray-400">Cobertura IFI</p>
+                <p className="text-sm font-semibold text-blue-900">{(ifi.cobertura_base * 100).toFixed(0)}%</p>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {emitido ? (
