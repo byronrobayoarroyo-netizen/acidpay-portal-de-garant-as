@@ -77,6 +77,8 @@ export default function CasosMora() {
                 <th className="px-4 py-3 text-left">Certificado</th>
                 {isAdmin(user) && <th className="px-4 py-3 text-left">IFI</th>}
                 <th className="px-4 py-3 text-left">Cliente</th>
+                <th className="px-4 py-3 text-right">Monto Crédito</th>
+                <th className="px-4 py-3 text-right">% Garantizado</th>
                 <th className="px-4 py-3 text-right">Monto Garantizado</th>
                 <th className="px-4 py-3 text-center">Días Mora</th>
                 <th className="px-4 py-3 text-center">Estado</th>
@@ -85,7 +87,7 @@ export default function CasosMora() {
             </thead>
             <tbody>
               {filtered.length === 0 ? (
-                <tr><td colSpan={isAdmin(user) ? 7 : 6} className="px-4 py-12 text-center text-gray-400">
+                <tr><td colSpan={isAdmin(user) ? 9 : 8} className="px-4 py-12 text-center text-gray-400">
                   <AlertTriangle size={32} className="mx-auto mb-2 text-gray-300" />
                   No hay casos de mora
                 </td></tr>
@@ -95,6 +97,12 @@ export default function CasosMora() {
                   <td className="px-4 py-3 font-mono text-xs text-blue-900 font-medium">{caso.certificado_numero}</td>
                   {isAdmin(user) && <td className="px-4 py-3 text-gray-600">{caso.ifi_nombre}</td>}
                   <td className="px-4 py-3 font-medium text-gray-900">{caso.cliente_nombre}</td>
+                  <td className="px-4 py-3 text-right text-gray-700">{formatCurrency(caso.monto_credito)}</td>
+                  <td className="px-4 py-3 text-right">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700">
+                      {caso.porcentaje_cobertura != null ? `${(caso.porcentaje_cobertura * 100).toFixed(0)}%` : '—'}
+                    </span>
+                  </td>
                   <td className="px-4 py-3 text-right font-semibold text-gray-900">{formatCurrency(caso.monto_garantizado)}</td>
                   <td className="px-4 py-3 text-center text-gray-600">{caso.dias_mora}</td>
                   <td className="px-4 py-3 text-center"><EstadoBadge estado={caso.estado} tipo="mora" /></td>

@@ -44,6 +44,8 @@ export default function NuevoCasoMora() {
         ifi_nombre: cert.ifi_nombre,
         cliente_nombre: cert.cliente_nombre,
         cliente_cedula: cert.cliente_cedula,
+        monto_credito: cert.monto_credito,
+        porcentaje_cobertura: cert.porcentaje_cobertura,
         monto_garantizado: cert.monto_garantizado,
         fecha_primer_incumplimiento: fechaIncumplimiento,
         dias_mora: parseInt(diasMora) || 0,

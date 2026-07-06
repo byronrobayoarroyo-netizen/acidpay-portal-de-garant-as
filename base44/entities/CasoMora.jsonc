@@ -20,6 +20,12 @@
     "cliente_cedula": {
       "type": "string"
     },
+    "monto_credito": {
+      "type": "number"
+    },
+    "porcentaje_cobertura": {
+      "type": "number"
+    },
     "monto_garantizado": {
       "type": "number"
     },
