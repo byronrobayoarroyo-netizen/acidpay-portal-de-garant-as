@@ -94,6 +94,7 @@ export default function Dashboard() {
   // Ranking by cartera
   const rankingData = {};
   certificados.forEach(c => {
+    if (!c || !c.ifi_nombre) return;
     if (!rankingData[c.ifi_nombre]) rankingData[c.ifi_nombre] = { cartera: 0, prima: 0, count: 0 };
     rankingData[c.ifi_nombre].cartera += c.monto_garantizado || 0;
     rankingData[c.ifi_nombre].prima += c.prima_valor || 0;
@@ -158,11 +159,11 @@ export default function Dashboard() {
           <div className="divide-y divide-gray-50">
             {recentCerts.length === 0 ? (
               <p className="px-5 py-8 text-center text-sm text-gray-400">No hay certificados</p>
-            ) : recentCerts.map(cert => (
-              <Link key={cert.id} to={`/certificados/${cert.id}`} className="px-5 py-3 flex items-center gap-4 hover:bg-gray-50 transition-colors">
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-900 truncate">{cert.cliente_nombre}</p>
-                  <p className="text-xs text-gray-500">{cert.numero} · {cert.ifi_nombre}</p>
+            ) : recentCerts.filter(Boolean).map(cert => (
+               <Link key={cert.id} to={`/certificados/${cert.id}`} className="px-5 py-3 flex items-center gap-4 hover:bg-gray-50 transition-colors">
+                 <div className="flex-1 min-w-0">
+                   <p className="text-sm font-medium text-gray-900 truncate">{cert.cliente_nombre}</p>
+                   <p className="text-xs text-gray-500">{cert.numero} · {cert.ifi_nombre || '—'}</p>
                 </div>
                 <BandaBadge banda={cert.banda} showLabel={false} />
                 <div className="text-right hidden sm:block">
