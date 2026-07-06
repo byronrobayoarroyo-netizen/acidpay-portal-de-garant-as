@@ -1,0 +1,27 @@
+{
+  "name": "BitacoraCaso",
+  "type": "object",
+  "properties": {
+    "caso_mora_id": {
+      "type": "string"
+    },
+    "usuario_nombre": {
+      "type": "string"
+    },
+    "accion": {
+      "type": "string"
+    },
+    "detalle": {
+      "type": "string"
+    },
+    "fecha": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "caso_mora_id",
+    "usuario_nombre",
+    "accion"
+  ]
+}

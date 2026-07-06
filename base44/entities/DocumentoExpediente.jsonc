@@ -1,0 +1,43 @@
+{
+  "name": "DocumentoExpediente",
+  "type": "object",
+  "properties": {
+    "certificado_id": {
+      "type": "string"
+    },
+    "certificado_numero": {
+      "type": "string"
+    },
+    "tipo": {
+      "type": "string",
+      "enum": [
+        "contrato",
+        "cedula",
+        "solicitud",
+        "soporte"
+      ]
+    },
+    "tipo_label": {
+      "type": "string"
+    },
+    "nombre_archivo": {
+      "type": "string"
+    },
+    "file_url": {
+      "type": "string"
+    },
+    "fecha_carga": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "cargado_por": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "certificado_id",
+    "tipo",
+    "nombre_archivo",
+    "file_url"
+  ]
+}

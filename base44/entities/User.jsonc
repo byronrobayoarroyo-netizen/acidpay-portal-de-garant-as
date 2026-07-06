@@ -1,0 +1,30 @@
+{
+  "name": "User",
+  "type": "object",
+  "properties": {
+    "role": {
+      "type": "string",
+      "enum": [
+        "admin",
+        "user"
+      ],
+      "default": "user"
+    },
+    "tipo_usuario": {
+      "type": "string",
+      "enum": [
+        "admin_acidpay",
+        "analista_riesgos",
+        "oficial_comercial",
+        "supervisor_banco"
+      ],
+      "default": "oficial_comercial"
+    },
+    "ifi_id": {
+      "type": "string"
+    },
+    "ifi_nombre": {
+      "type": "string"
+    }
+  }
+}

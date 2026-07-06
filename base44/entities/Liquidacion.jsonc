@@ -1,0 +1,53 @@
+{
+  "name": "Liquidacion",
+  "type": "object",
+  "properties": {
+    "ifi_id": {
+      "type": "string"
+    },
+    "ifi_nombre": {
+      "type": "string"
+    },
+    "mes": {
+      "type": "string"
+    },
+    "numero_certificados": {
+      "type": "number"
+    },
+    "monto_total_garantizado": {
+      "type": "number"
+    },
+    "prima_total": {
+      "type": "number"
+    },
+    "fecha_limite_pago": {
+      "type": "string",
+      "format": "date"
+    },
+    "estado": {
+      "type": "string",
+      "enum": [
+        "pendiente",
+        "pagada",
+        "parcial",
+        "vencida"
+      ],
+      "default": "pendiente"
+    },
+    "pago_fecha": {
+      "type": "string",
+      "format": "date"
+    },
+    "pago_monto": {
+      "type": "number"
+    },
+    "pago_referencia": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "ifi_id",
+    "mes",
+    "estado"
+  ]
+}

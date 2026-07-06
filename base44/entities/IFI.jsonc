@@ -1,0 +1,50 @@
+{
+  "name": "IFI",
+  "type": "object",
+  "properties": {
+    "nombre": {
+      "type": "string"
+    },
+    "codigo": {
+      "type": "string"
+    },
+    "tipo": {
+      "type": "string",
+      "enum": [
+        "Banco",
+        "Tarjeta de Cr\u00e9dito",
+        "Cooperativa"
+      ],
+      "default": "Banco"
+    },
+    "estado": {
+      "type": "string",
+      "enum": [
+        "activa",
+        "suspendida"
+      ],
+      "default": "activa"
+    },
+    "fecha_adhesion": {
+      "type": "string",
+      "format": "date"
+    },
+    "cupo_garantia": {
+      "type": "number"
+    },
+    "tasa_base": {
+      "type": "number"
+    },
+    "color_hex": {
+      "type": "string"
+    },
+    "logo_iniciales": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "nombre",
+    "codigo",
+    "tipo"
+  ]
+}

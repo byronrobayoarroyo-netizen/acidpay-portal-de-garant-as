@@ -1,0 +1,102 @@
+{
+  "name": "Certificado",
+  "type": "object",
+  "properties": {
+    "numero": {
+      "type": "string"
+    },
+    "ifi_id": {
+      "type": "string"
+    },
+    "ifi_nombre": {
+      "type": "string"
+    },
+    "ofi_nombre": {
+      "type": "string"
+    },
+    "cliente_nombre": {
+      "type": "string"
+    },
+    "cliente_cedula": {
+      "type": "string"
+    },
+    "segmento": {
+      "type": "string",
+      "enum": [
+        "Persona Natural",
+        "PYME"
+      ]
+    },
+    "destino_credito": {
+      "type": "string"
+    },
+    "monto_credito": {
+      "type": "number"
+    },
+    "plazo_meses": {
+      "type": "number"
+    },
+    "score": {
+      "type": "number"
+    },
+    "banda": {
+      "type": "string",
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ]
+    },
+    "porcentaje_cobertura": {
+      "type": "number"
+    },
+    "monto_garantizado": {
+      "type": "number"
+    },
+    "tasa_base": {
+      "type": "number"
+    },
+    "prima_porcentaje": {
+      "type": "number"
+    },
+    "prima_valor": {
+      "type": "number"
+    },
+    "tasa_total": {
+      "type": "number"
+    },
+    "cuota_mensual": {
+      "type": "number"
+    },
+    "estado": {
+      "type": "string",
+      "enum": [
+        "vigente",
+        "cancelado",
+        "en_mora",
+        "ejecutado",
+        "vencido"
+      ],
+      "default": "vigente"
+    },
+    "fecha_emision": {
+      "type": "string",
+      "format": "date"
+    },
+    "mes_liquidacion": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "numero",
+    "ifi_id",
+    "cliente_nombre",
+    "cliente_cedula",
+    "monto_credito",
+    "plazo_meses",
+    "banda",
+    "estado"
+  ]
+}
