@@ -14,7 +14,7 @@ import { ESTADOS_LIQUIDACION } from '@/lib/tarifario';
 import { generateAlerts } from '@/lib/generateAlerts';
 
 export default function Dashboard() {
-  const { user } = useCurrentUser();
+  const { user, loading: userLoading } = useCurrentUser();
   const [stats, setStats] = useState({
     carteraTotal: 0,
     primaMes: 0,
@@ -79,7 +79,7 @@ export default function Dashboard() {
     loadData();
   }, [user]);
 
-  if (loading) {
+  if (userLoading || loading || !user) {
     return (
       <div className="flex items-center justify-center py-20">
         <div className="w-8 h-8 border-4 border-blue-200 border-t-blue-800 rounded-full animate-spin"></div>
