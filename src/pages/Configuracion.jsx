@@ -14,7 +14,7 @@ export default function Configuracion() {
   const [savingIfi, setSavingIfi] = useState(false);
 
   // New IFI form
-  const blankIfi = { nombre: '', codigo: '', tipo: 'Banco', estado: 'activa', cupo_garantia: '', tasa_base: '', fecha_adhesion: '', logo_iniciales: '', color_hex: '#1B4F8A' };
+  const blankIfi = { nombre: '', codigo: '', tipo: 'Banco', estado: 'activa', cupo_garantia: '', tasa_base: '', cobertura_base: '', fecha_adhesion: '', logo_iniciales: '', color_hex: '#1B4F8A' };
   const [ifiForm, setIfiForm] = useState(blankIfi);
 
   useEffect(() => {
@@ -43,6 +43,7 @@ export default function Configuracion() {
         ...ifiForm,
         cupo_garantia: parseFloat(ifiForm.cupo_garantia) || 0,
         tasa_base: parseFloat(ifiForm.tasa_base) || 12,
+        cobertura_base: ifiForm.cobertura_base ? parseFloat(ifiForm.cobertura_base) / 100 : null,
         logo_iniciales: ifiForm.logo_iniciales || ifiForm.nombre.substring(0, 2).toUpperCase()
       };
       if (editingIfi) {
@@ -70,6 +71,7 @@ export default function Configuracion() {
       estado: ifi.estado || 'activa',
       cupo_garantia: ifi.cupo_garantia?.toString() || '',
       tasa_base: ifi.tasa_base?.toString() || '',
+      cobertura_base: ifi.cobertura_base != null ? (ifi.cobertura_base * 100).toString() : '',
       fecha_adhesion: ifi.fecha_adhesion || '',
       logo_iniciales: ifi.logo_iniciales || '',
       color_hex: ifi.color_hex || '#1B4F8A'
@@ -168,6 +170,12 @@ export default function Configuracion() {
                 </div>
               </div>
               <div>
+                <label className="block text-xs font-medium text-gray-600 mb-1">% Cobertura (máx. 80%)</label>
+                <input type="number" step="1" min="0" max="80" value={ifiForm.cobertura_base} onChange={e => setIfiForm({ ...ifiForm, cobertura_base: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Vacío = usa banda" />
+                <p className="mt-1 text-[10px] text-gray-400">Si se deja vacío, se usa el % de la banda de riesgo. Tope: 80%.</p>
+              </div>
+              <div>
                 <label className="block text-xs font-medium text-gray-600 mb-1">Fecha adhesión</label>
                 <input type="date" value={ifiForm.fecha_adhesion} onChange={e => setIfiForm({ ...ifiForm, fecha_adhesion: e.target.value })}
                   className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
@@ -189,6 +197,7 @@ export default function Configuracion() {
                     <th className="px-4 py-3 text-left">Tipo</th>
                     <th className="px-4 py-3 text-right">Cupo</th>
                     <th className="px-4 py-3 text-right">Tasa Base</th>
+                    <th className="px-4 py-3 text-right">Cobertura</th>
                     <th className="px-4 py-3 text-center">Estado</th>
                     <th className="px-4 py-3"></th>
                   </tr>
@@ -210,6 +219,7 @@ export default function Configuracion() {
                       <td className="px-4 py-3 text-gray-600">{ifi.tipo}</td>
                       <td className="px-4 py-3 text-right font-medium text-gray-900">{formatCurrency(ifi.cupo_garantia)}</td>
                       <td className="px-4 py-3 text-right text-gray-600">{ifi.tasa_base}%</td>
+                      <td className="px-4 py-3 text-right text-gray-600">{ifi.cobertura_base != null ? `${(ifi.cobertura_base * 100).toFixed(0)}%` : '—'}</td>
                       <td className="px-4 py-3 text-center">
                         <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${ifi.estado === 'activa' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
                           {ifi.estado}

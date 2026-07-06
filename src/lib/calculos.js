@@ -18,11 +18,14 @@ export function getBandaFromScore(score) {
   return 'E';
 }
 
-export function calcularCotizacion(monto, plazoMeses, banda, tasaBase) {
+export const COBERTURA_MAXIMA = 0.80;
+
+export function calcularCotizacion(monto, plazoMeses, banda, tasaBase, coberturaOverride) {
   const params = TARIFARIO[banda];
   if (!params) return null;
 
-  const montoGarantizado = monto * params.cobertura;
+  const cobertura = Math.min(coberturaOverride != null ? coberturaOverride : params.cobertura, COBERTURA_MAXIMA);
+  const montoGarantizado = monto * cobertura;
   const primaValor = montoGarantizado * params.prima;
   const primaRateAnual = (primaValor / monto) * (12 / plazoMeses) * 100;
   const tasaTotal = tasaBase + primaRateAnual;
@@ -42,7 +45,7 @@ export function calcularCotizacion(monto, plazoMeses, banda, tasaBase) {
     primaRateAnual: Math.round(primaRateAnual * 100) / 100,
     tasaTotal: Math.round(tasaTotal * 100) / 100,
     cuotaMensual: Math.round(cuotaMensual * 100) / 100,
-    porcentajeCobertura: params.cobertura,
+    porcentajeCobertura: cobertura,
     primaPorcentaje: params.prima
   };
 }

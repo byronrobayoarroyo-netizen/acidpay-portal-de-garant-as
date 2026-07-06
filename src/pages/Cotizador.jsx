@@ -54,7 +54,7 @@ export default function Cotizador() {
     setTimeout(() => {
       const score = simulateScore(clienteCedula);
       const banda = getBandaFromScore(score);
-      const calc = calcularCotizacion(parseFloat(monto), parseInt(plazo), banda, tasaBase);
+      const calc = calcularCotizacion(parseFloat(monto), parseInt(plazo), banda, tasaBase, ifi?.cobertura_base);
       setCotizacion({ score, banda, ...calc });
       setCalculando(false);
     }, 800);
@@ -231,6 +231,10 @@ export default function Cotizador() {
                   {!isNegativa && (
                     <>
                       <div className="space-y-3">
+                        <div className="flex items-center justify-between py-2 border-b border-gray-50">
+                          <span className="text-xs text-gray-500 flex items-center gap-1.5"><Shield size={14} /> % de cobertura</span>
+                          <span className="text-sm font-bold text-gray-900">{(cotizacion.porcentajeCobertura * 100).toFixed(0)}%</span>
+                        </div>
                         <div className="flex items-center justify-between py-2 border-b border-gray-50">
                           <span className="text-xs text-gray-500 flex items-center gap-1.5"><DollarSign size={14} /> Monto garantizado</span>
                           <span className="text-sm font-bold text-gray-900">{formatCurrency(cotizacion.montoGarantizado)}</span>
