@@ -11,6 +11,7 @@ import EstadoBadge from '@/components/EstadoBadge';
 import { useCurrentUser, isAdmin, isBancoUser } from '@/lib/useCurrentUser';
 import { formatCurrency, formatNumber, formatDate, getMesLabel } from '@/lib/calculos';
 import { ESTADOS_LIQUIDACION } from '@/lib/tarifario';
+import { generateAlerts } from '@/lib/generateAlerts';
 
 export default function Dashboard() {
   const { user } = useCurrentUser();
@@ -73,6 +74,8 @@ export default function Dashboard() {
         setLoading(false);
       }
     }
+    // Generate alerts on dashboard load (fire-and-forget)
+    generateAlerts();
     loadData();
   }, [user]);
 

@@ -1,0 +1,52 @@
+{
+  "name": "Alerta",
+  "type": "object",
+  "properties": {
+    "tipo": {
+      "type": "string",
+      "enum": [
+        "mora_proxima",
+        "mora_vencida",
+        "siniestro_proximo",
+        "liquidacion_vencida",
+        "liquidacion_proxima"
+      ]
+    },
+    "titulo": {
+      "type": "string"
+    },
+    "mensaje": {
+      "type": "string"
+    },
+    "ifi_id": {
+      "type": "string"
+    },
+    "caso_mora_id": {
+      "type": "string"
+    },
+    "liquidacion_id": {
+      "type": "string"
+    },
+    "fecha_limite": {
+      "type": "string",
+      "format": "date"
+    },
+    "dias_restantes": {
+      "type": "number"
+    },
+    "leida": {
+      "type": "boolean",
+      "default": false
+    },
+    "fecha_creacion": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "tipo",
+    "titulo",
+    "mensaje",
+    "leida"
+  ]
+}

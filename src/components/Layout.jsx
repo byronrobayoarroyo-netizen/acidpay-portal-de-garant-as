@@ -6,6 +6,7 @@ import {
   AlertTriangle, Settings, Menu, X, ChevronDown, Building2
 } from 'lucide-react';
 import RoleBadge from './RoleBadge';
+import AlertBell from './AlertBell';
 import { useCurrentUser, ROLE_LABELS, isAdmin, isBancoUser } from '@/lib/useCurrentUser';
 
 const NAV_ITEMS = [
@@ -62,6 +63,9 @@ export default function Layout() {
           <div>
             <p className="font-bold text-sm tracking-tight">ACIDPAY</p>
             <p className="text-[10px] text-blue-300 tracking-wide uppercase">Portal de Garantías</p>
+          </div>
+          <div className="ml-auto">
+            <AlertBell />
           </div>
         </div>
 
@@ -123,7 +127,10 @@ export default function Layout() {
             </button>
             <span className="font-bold text-sm">ACIDPAY Portal</span>
           </div>
-          <RoleBadge tipo={user?.tipo_usuario} />
+          <div className="flex items-center gap-2">
+            <AlertBell />
+            <RoleBadge tipo={user?.tipo_usuario} />
+          </div>
         </header>
 
         <main className="flex-1 p-4 lg:p-8 max-w-[1600px] w-full mx-auto">
