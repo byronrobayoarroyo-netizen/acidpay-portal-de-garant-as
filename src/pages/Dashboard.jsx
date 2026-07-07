@@ -12,6 +12,7 @@ import { useCurrentUser, isAdmin, isBancoUser } from '@/lib/useCurrentUser';
 import { formatCurrency, formatNumber, formatDate, getMesLabel } from '@/lib/calculos';
 import { ESTADOS_LIQUIDACION } from '@/lib/tarifario';
 import { generateAlerts } from '@/lib/generateAlerts';
+import UserListTable from '@/components/UserListTable';
 import GarantizadoPorMesChart from '@/components/GarantizadoPorMesChart';
 
 export default function Dashboard() {
@@ -26,6 +27,7 @@ export default function Dashboard() {
   const [liquidaciones, setLiquidaciones] = useState([]);
   const [casosMora, setCasosMora] = useState([]);
   const [ifis, setIfis] = useState([]);
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -52,6 +54,15 @@ export default function Dashboard() {
         setLiquidaciones(filteredLiqs.filter(Boolean));
         setCasosMora(filteredMoras.filter(Boolean));
         setIfis(ifiList);
+
+        if (isAdmin(user)) {
+          try {
+            const allUsers = await base44.entities.User.list();
+            setUsers(allUsers.filter(Boolean));
+          } catch (e) {
+            console.error('Error loading users:', e);
+          }
+        }
 
         const carteraTotal = filteredCerts
           .filter(c => c.estado === 'vigente' || c.estado === 'en_mora')
@@ -209,6 +220,9 @@ export default function Dashboard() {
 
       {/* Chart: monto garantizado por mes e IFI */}
       <GarantizadoPorMesChart certificados={certificados} />
+
+      {/* Users table - admin only */}
+      {isAdmin(user) && users.length > 0 && <UserListTable users={users} />}
 
       {/* Ranking */}
       {isAdmin(user) && ranking.length > 0 && (
