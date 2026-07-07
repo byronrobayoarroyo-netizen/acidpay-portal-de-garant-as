@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import RoleBadge from './RoleBadge';
 import AlertBell from './AlertBell';
+import UserMenu from './UserMenu';
 import { useCurrentUser, ROLE_LABELS, isAdmin, isBancoUser } from '@/lib/useCurrentUser';
 
 const NAV_ITEMS = [
@@ -119,17 +120,18 @@ export default function Layout() {
 
       {/* Main content */}
       <div className="flex-1 min-w-0 flex flex-col">
-        {/* Mobile header */}
-        <header className="lg:hidden sticky top-0 z-20 bg-[#0A2342] text-white px-4 py-3 flex items-center justify-between">
+        {/* Top header - desktop & mobile */}
+        <header className="sticky top-0 z-20 bg-white border-b border-gray-100 px-4 lg:px-8 py-2.5 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <button onClick={() => setSidebarOpen(!sidebarOpen)}>
-              {sidebarOpen ? <X size={22} /> : <Menu size={22} />}
+            <button onClick={() => setSidebarOpen(!sidebarOpen)} className="lg:hidden">
+              {sidebarOpen ? <X size={22} className="text-gray-700" /> : <Menu size={22} className="text-gray-700" />}
             </button>
-            <span className="font-bold text-sm">ACIDPAY Portal</span>
+            <span className="font-bold text-sm text-gray-900 lg:hidden">ACIDPAY Portal</span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <AlertBell />
-            <RoleBadge tipo={user?.tipo_usuario} />
+            <div className="hidden lg:block h-6 w-px bg-gray-200" />
+            <UserMenu user={user} />
           </div>
         </header>
 
