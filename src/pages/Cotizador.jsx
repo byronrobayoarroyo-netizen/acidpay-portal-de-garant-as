@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import BandaBadge from '@/components/BandaBadge';
 import { simulateScore, getBandaFromScore, calcularCotizacion, generateCertificadoNumero, formatCurrency } from '@/lib/calculos';
-import { TARIFARIO } from '@/lib/tarifario';
+import { TARIFARIO, EJEMPLOS_PERFIL } from '@/lib/tarifario';
 
 export default function Cotizador() {
   const { user } = useCurrentUser();
@@ -157,6 +157,32 @@ export default function Cotizador() {
           </div>
         </div>
       ) : (
+        <>
+        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
+          <p className="text-xs font-medium text-gray-500 mb-3">Simular con perfil de ejemplo (Tabla Maestra):</p>
+          <div className="flex flex-wrap gap-2">
+            {EJEMPLOS_PERFIL.map(perfil => {
+              const params = TARIFARIO[perfil.banda];
+              return (
+                <button
+                  key={perfil.banda}
+                  onClick={() => {
+                    setClienteNombre(perfil.nombre);
+                    setClienteCedula(perfil.cedula);
+                    setMonto(String(perfil.monto));
+                    setPlazo(String(perfil.plazo));
+                  }}
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors hover:opacity-80"
+                  style={{ backgroundColor: params.bg, color: params.text, borderColor: params.color }}
+                >
+                  <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: params.color }} />
+                  Banda {perfil.banda} · {perfil.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
           {/* Form */}
           <div className="lg:col-span-3 bg-white rounded-xl border border-gray-100 shadow-sm p-6 space-y-5">
@@ -319,6 +345,7 @@ export default function Cotizador() {
             )}
           </div>
         </div>
+        </>
       )}
     </div>
   );

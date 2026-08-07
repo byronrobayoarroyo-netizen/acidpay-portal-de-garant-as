@@ -24,9 +24,15 @@ export function calcularCotizacion(monto, plazoMeses, banda, tasaBase, cobertura
   const params = TARIFARIO[banda];
   if (!params) return null;
 
+  // Fórmula maestra: EL = PD × LGD × EAD
+  const el = params.pd * params.lgd * params.ead;
+  const margenPrudencial = el * params.margen_prudencial_factor;
+  const primaBruta = el + margenPrudencial;
+  const primaTotalPct = primaBruta + params.adm;
+
   const cobertura = Math.min(coberturaOverride != null ? coberturaOverride : params.cobertura, COBERTURA_MAXIMA);
   const montoGarantizado = monto * cobertura;
-  const primaValor = montoGarantizado * params.prima;
+  const primaValor = montoGarantizado * primaTotalPct;
   const primaRateAnual = (primaValor / monto) * (12 / plazoMeses) * 100;
   const tasaTotal = tasaBase + primaRateAnual;
 
@@ -46,7 +52,7 @@ export function calcularCotizacion(monto, plazoMeses, banda, tasaBase, cobertura
     tasaTotal: Math.round(tasaTotal * 100) / 100,
     cuotaMensual: Math.round(cuotaMensual * 100) / 100,
     porcentajeCobertura: cobertura,
-    primaPorcentaje: params.prima
+    primaPorcentaje: primaTotalPct
   };
 }
 
