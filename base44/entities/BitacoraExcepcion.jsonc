@@ -1,0 +1,74 @@
+{
+  "name": "BitacoraExcepcion",
+  "type": "object",
+  "properties": {
+    "accion": {
+      "type": "string",
+      "enum": [
+        "cotizacion",
+        "excepcion_banda_e",
+        "aprobacion_cro"
+      ]
+    },
+    "resultado": {
+      "type": "string",
+      "enum": [
+        "permitido",
+        "denegado"
+      ]
+    },
+    "motivo": {
+      "type": "string"
+    },
+    "usuario_id": {
+      "type": "string"
+    },
+    "usuario_nombre": {
+      "type": "string"
+    },
+    "usuario_email": {
+      "type": "string"
+    },
+    "usuario_tipo": {
+      "type": "string"
+    },
+    "ifi_id": {
+      "type": "string"
+    },
+    "banda": {
+      "type": "string",
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ]
+    },
+    "score": {
+      "type": "number"
+    },
+    "monto_credito": {
+      "type": "number"
+    },
+    "cobertura_aplicada": {
+      "type": "number"
+    },
+    "justificacion": {
+      "type": "string"
+    },
+    "tarifario_version": {
+      "type": "string"
+    },
+    "fecha": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "accion",
+    "resultado",
+    "usuario_id",
+    "fecha"
+  ]
+}
