@@ -16,6 +16,7 @@ import CasosMora from '@/pages/CasosMora';
 import CasoMoraDetail from '@/pages/CasoMoraDetail';
 import NuevoCasoMora from '@/pages/NuevoCasoMora';
 import Configuracion from '@/pages/Configuracion';
+import VerificacionTarifario from '@/pages/VerificacionTarifario';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -54,6 +55,7 @@ const AuthenticatedApp = () => {
         <Route path="/casos-mora/nuevo/:id" element={<NuevoCasoMora />} />
         <Route path="/casos-mora/:id" element={<CasoMoraDetail />} />
         <Route path="/configuracion" element={<Configuracion />} />
+        <Route path="/verificacion-tarifario" element={<VerificacionTarifario />} />
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>
