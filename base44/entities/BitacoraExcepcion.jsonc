@@ -70,5 +70,23 @@
     "resultado",
     "usuario_id",
     "fecha"
-  ]
+  ],
+  "rls": {
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "data.usuario_id": "__BITACORA_APPEND_ONLY__"
+    },
+    "delete": {
+      "data.usuario_id": "__BITACORA_APPEND_ONLY__"
+    }
+  }
 }
