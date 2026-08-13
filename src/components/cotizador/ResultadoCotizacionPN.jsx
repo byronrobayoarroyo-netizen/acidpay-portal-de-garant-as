@@ -57,7 +57,7 @@ export default function ResultadoCotizacionPN({ cotizacion }) {
           <div className="flex items-center justify-between py-1.5 border-b border-gray-100">
             <span className="text-xs text-gray-600">Prima de garantía (% s/ monto garantizado)</span>
             <span className="text-sm font-bold text-gray-900 tabular-nums">
-              {formatPct(cotizacion.prima_total_pct, 4)}
+              {formatPct(cotizacion.prima_total_pct, 2)}
             </span>
           </div>
           <div className="flex items-center justify-between py-1.5">

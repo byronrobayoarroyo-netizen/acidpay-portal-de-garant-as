@@ -268,8 +268,9 @@ export function formatUSD(value) {
   }).format(Number(value));
 }
 
-/** Porcentaje con `dec` decimales. prima_total_pct se muestra con 4. */
+/** Porcentaje de presentación: máximo 2 decimales (el cálculo interno mantiene la precisión completa). */
 export function formatPct(fraccion, dec = 2) {
+  dec = Math.min(Number(dec) || 2, 2);
   if (fraccion == null || !Number.isFinite(Number(fraccion))) return '—';
   return `${D(fraccion).times(100).toDecimalPlaces(dec, Decimal.ROUND_HALF_UP).toFixed(dec)}%`;
 }
