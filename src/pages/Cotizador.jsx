@@ -23,6 +23,7 @@ export default function Cotizador() {
   const [monto, setMonto] = useState('');
   const [plazo, setPlazo] = useState('12');
   const [cobertura, setCobertura] = useState('');
+  const [scoreManual, setScoreManual] = useState('');
 
   const [cotizacion, setCotizacion] = useState(null);
   const [error, setError] = useState(null);
@@ -47,6 +48,7 @@ export default function Cotizador() {
     setClienteCedula(CEDULA_PLACEHOLDER_DEMO);
     setMonto(String(esc.monto_sugerido));
     setCobertura(String(getBandaConfig(esc.banda).cobertura));
+    setScoreManual(String(esc.score));
     setCotizacion(null);
     setError(null);
     setEmitido(null);
@@ -56,12 +58,11 @@ export default function Cotizador() {
     setError(null);
     setEmitido(null);
     const esc = buscarEscenarioDemo(clienteNombre);
-    if (!esc) {
+    const score = scoreManual !== '' ? Number(scoreManual) : esc?.score;
+    if (score === undefined || Number.isNaN(score)) {
       setCotizacion(null);
       setError(
-        DEMO_MODE
-          ? 'Sin score disponible. La consulta al buró de crédito no está integrada; en modo demo use uno de los nombres de escenario.'
-          : 'Sin score disponible. La consulta al buró de crédito no está integrada todavía.'
+        'La consulta al buró de crédito no está integrada: ingrese un score simulado (0-850) o use un nombre de escenario demo.'
       );
       return;
     }
@@ -70,7 +71,7 @@ export default function Cotizador() {
         cotizarPN({
           montoCredito: monto,
           plazoMeses: parseInt(plazo, 10),
-          score: esc.score,
+          score,
           coberturaAplicada: cobertura !== '' ? cobertura : undefined,
           esDemo: true
         })
@@ -83,7 +84,7 @@ export default function Cotizador() {
 
   const handleReset = () => {
     setClienteNombre(''); setClienteCedula(''); setDestino('');
-    setMonto(''); setPlazo('12'); setCobertura('');
+    setMonto(''); setPlazo('12'); setCobertura(''); setScoreManual('');
     setCotizacion(null); setError(null); setEmitido(null);
   };
 
@@ -230,6 +231,26 @@ export default function Cotizador() {
               <div className="flex items-center gap-2 pt-4 pb-3 border-t border-b border-gray-100">
                 <FileCheck size={18} className="text-blue-900" />
                 <h2 className="font-semibold text-gray-900">Datos de la operación</h2>
+              </div>
+
+              <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
+                <label className="block text-xs font-medium text-amber-900 mb-1">
+                  Score simulado (0 - 850)
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  max="850"
+                  value={scoreManual}
+                  onChange={(e) => setScoreManual(e.target.value)}
+                  className="w-full px-3 py-2 border border-amber-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-amber-500"
+                  placeholder="Ej. 515"
+                />
+                <p className="mt-1 text-[11px] text-amber-900">
+                  La consulta al buró de crédito no está integrada. El score se ingresa
+                  manualmente, por lo que la cotización es una simulación y no puede convertirse en
+                  un certificado real.
+                </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
