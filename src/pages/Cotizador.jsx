@@ -112,6 +112,7 @@ export default function Cotizador() {
       prima_porcentaje: cotizacion.prima_total_pct,
       prima_valor: cotizacion.prima_usd,
       cuota_mensual: cotizacion.cuota_mensual,
+      tarifario_version: cotizacion.tarifario_version,
       estado: 'vigente',
       fecha_emision: now.toISOString().split('T')[0],
       mes_liquidacion: `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`

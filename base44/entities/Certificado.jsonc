@@ -70,6 +70,9 @@
     "cuota_mensual": {
       "type": "number"
     },
+    "tarifario_version": {
+      "type": "string"
+    },
     "estado": {
       "type": "string",
       "enum": [
